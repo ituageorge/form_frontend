@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+// import {BrowserRouter as Router, Switch, Redirect, Link} from 'react-router-dom';
+import {Link, useLocation, useHistory, Redirect, withRouter} from 'react-router-dom';
 import axios from 'axios';
 
 import regeneratorRuntime from "regenerator-runtime";
@@ -10,61 +11,39 @@ export const RegistrationForm = () => {
   const [lastName, setLastName] = useState('');
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [profileImg, setProfileImg] = useState([]);
+
+  const [profileImg, setProfileImg] = useState("");
 
   const [submitted, setSubmitted] = useState(false);
 
-  // const profileImgEl = useRef(null);
-  // const firstNameEl = useRef('');
-  // const lastNameEl = useRef('');
-  // const usernameEl = useRef('');
-  // const passwordEl = useRef('');
+  const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setSubmitted(true);
     let formData = new FormData();
+    formData.append('profileImg', profileImg);
     formData.append('firstName', firstName);
     formData.append('lastName', lastName);
     formData.append('username', username);
     formData.append('password', password);
-    formData.append('profileImg', profileImg);
 
       if (firstName && lastName && username && password) {
 
-
-        axios.post('http://localhost:3000',
+        axios.post('http://localhost:3000/users/upload',
          formData
         )
         .then(function (response) {
-          console.log(response);
+          console.log('response',response);
+        
         })
         .catch(function (error) {
           console.log(error);
-        });
-
-
-      // axios({
-      //   method: 'post',
-      //   url: 'http://localhost:3000',
-      //   // url: '/register',
-      //   data: formData,
-      //   headers: {'Content-Type': 'multipart/form-data'},
-      // })
-      //   .then((result) => {
-      //     // access results...
-      //     //handle success
-      //     console.log('positiveeeeeee',result);
-      //   })
-      //   .catch(function (result) {
-      //     //handle error
-      //     console.log('eeeerror',result);
-      //   });
-
+        }); 
 
     }
-
+    history.push('/login');
   };
 
   return (

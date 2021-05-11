@@ -1,47 +1,53 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useHistory, Redirect, withRouter} from 'react-router-dom';
+// import {BrowserRouter as Router, Switch, Redirect, Link} from 'react-router-dom';
+import axios from 'axios';
 
 
-import {history} from '../../_helpers/history';
+// import {history} from '../../_helpers/history';
 
 const LoginForm = () => {
 
-  const [inputs, setInputs] = useState({
-    username: '',
-    password: '',
-  });
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
 
   const [submitted, setSubmitted] = useState(false);
 
-  const {username, password} = inputs;
   const location = useLocation();
-
+  const history = useHistory();
   
-  const handleChange = (event) => {
-    const {name, value} = event.target;
-    setInputs((inputs) => ({...inputs, [name]: value}));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
+
+    let formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+
     if (username && password) {
-      // this is to return url from location state or default to home page
-      const {from} = location.state || {from: {pathname: '/'}};
+      axios.post('http://localhost:3000/users/login',
+      formData
+     )
+     .then(function (response) {
+       console.log('response', response);
+       
+     })
+     .catch(function (error) {
+       console.log('errorcatch',error);
+       
+     });
+        
+      // history.push('/') ;
       
     }
+    history.push('/');
+    
   };
 
   // reset login status
-  // useEffect(() => {
+  useEffect(() => {
     
-
-  //   if (history.location.state && history.location.state.transaction) {
-  //     let state = {...history.location.state};
-  //     delete state.transaction;
-  //     history.replace({...history.location, state});
-  //   }
-  // }, []);
+  }, []);
 
   return (
     <section className="form">
@@ -69,7 +75,7 @@ const LoginForm = () => {
                   className="form-control my-3 p-4"
                   name="username"
                   value={username}
-                  onChange={handleChange}
+                  onChange={(e) => setUserName(e.target.value)}
                 />
                 {submitted && !username && (
                   <div className="help-block">Username is required</div>
@@ -88,7 +94,7 @@ const LoginForm = () => {
                   className="form-control my-3 p-4"
                   name="password"
                   value={password}
-                  onChange={handleChange}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 {submitted && !password && (
                   <div className="help-block">Password is required</div>
@@ -114,4 +120,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default withRouter(LoginForm);
