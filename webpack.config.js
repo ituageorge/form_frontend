@@ -40,6 +40,12 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
   },
+  externals: {
+    //global app config object
+    config: JSON.stringify({
+      apiUrl: "http://localhost:3000"
+    })
+  },
   optimization: {
     splitChunks: {chunks: 'all'},
   },

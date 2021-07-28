@@ -4,6 +4,9 @@ import {uuid} from 'uuidv4';
 // import { uuid } from uuid4
 
 import {questions} from './questions';
+import './styles.css';
+
+
 
 export const QuestionApp = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);

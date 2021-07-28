@@ -1,15 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
- Router,
   Switch,
   Route,
   HashRouter,
   Redirect,
 } from 'react-router-dom';
 
-import { history } from '../_helpers/history';
-import {PrivateRoute} from '../_helpers/PrivateRoute';
+import { history } from '../_helpers';
+import {PrivateRoute} from '../_helpers';
 import {HomePage} from '../component/home';
+import {UserManagement} from '../component/home';
 import {LoginForm} from '../component/login';
 import {RegistrationForm} from '../component/registration';
 
@@ -19,10 +19,12 @@ function App() {
       {/* <Router history={history}> */}
       <HashRouter>
         <Switch>
-          <PrivateRoute exact path="/" component={HomePage} />
+          <PrivateRoute exact  path="/" component={HomePage} />
+          {/* <Route exact path="/" component={HomePage} /> */}
+          <Route path="/user_management" component={UserManagement} />
           <Route path="/login" component={LoginForm} />
           <Route path="/register" component={RegistrationForm} />
-          <Redirect from="*" to="/login" />
+          <Redirect from="*" to="/register" />
         </Switch>
       </HashRouter>
       {/* </Router> */}
