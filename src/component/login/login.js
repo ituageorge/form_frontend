@@ -62,6 +62,7 @@ export const LoginForm = () => {
 
   const [submitted, setSubmitted] = useState(false);
 
+  const [message, setMessage] = useState("");
   // const location = useLocation();
   const history = useHistory();
 
@@ -75,7 +76,7 @@ export const LoginForm = () => {
         password: password,
       })
       .then(
-        (response) => {
+       async (response) => {
           // if (response.data.accessToken) {
           console.log('response111111', response);
           if (response) {
@@ -91,26 +92,25 @@ export const LoginForm = () => {
               // state: {_id: "0001", name: "AZ"}
             });
 
-            // <Route path="/" component={() => <HomePage name={this.props.name} />} />
-
-             // <Route path="/" component={() => <HomePage findLoginUser={findLoginUser} />} />
-
-            // <Route path="/:name" component={Search} />
 
             // window.location.reload();
           }
           return response;
         },
-        (error) => {
+       async (error) => {
           if (error.response) {
             // client received an error response (5xx, 4xx)
-            console.log('errorRes', error.response);
+            console.log('errorRes', error.response.data.message);
+        const message = error.response.data.message
+           alert(message)
           } else if (error.request) {
             // client never received a response, or request never left
             console.log('errorReq', error.request);
+            alert(error)
           } else {
             // anything else
             console.log('eeeror', error);
+            alert(error)
           }
         },
       );
@@ -121,6 +121,7 @@ export const LoginForm = () => {
 
   return (
     <section className="form">
+      
       <div className="container">
         <div className="row no-gutters">
           <div className="col-lg-4">
@@ -129,10 +130,11 @@ export const LoginForm = () => {
           <div className="col-lg-8  pt-2">
             <h1 className="font-weight-bold">Exam Time Application</h1>
             <h4>Sign into your account</h4>
-            <form name="form" onSubmit={handleSubmit}>
+            {message}
+            <form name="form row" onSubmit={handleSubmit}>
               <div
                 className={
-                  'form-group col-lg-7' +
+                  ' col' +
                   (submitted && !username ? ' has-error' : '')
                 }
               >
@@ -151,7 +153,7 @@ export const LoginForm = () => {
               </div>
               <div
                 className={
-                  'form-group col-lg-7' +
+                  'form-group col' +
                   (submitted && !username ? ' has-error' : '')
                 }
               >
@@ -172,7 +174,8 @@ export const LoginForm = () => {
                 <button className="btn1 btn1 mt-3 mb-5">Login</button>
                 {/* {loggingIn && <img src=""/>} */}
               </div>
-              <a href="#">Forgot password</a>
+        
+              <Link to="/recover/password">Forgot password?</Link>
               <p>
                 Don't have an account?
                 <Link to="/register">Register here</Link>

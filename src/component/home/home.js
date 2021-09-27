@@ -136,7 +136,7 @@ const location = useLocation();
     } catch (error) {
       console.error(error);
       // setAppState({ ...appState, loading: false });
-      alert(error.response.data.error);
+      alert(error.response.error);
     }
   };
 

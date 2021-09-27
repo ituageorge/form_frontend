@@ -59,7 +59,8 @@ const baseUrl = 'http://localhost:3000/users';
 export const RegistrationForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [username, setUserName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [profileImg, setProfileImg] = useState('');
@@ -77,9 +78,10 @@ export const RegistrationForm = () => {
     formData.append('firstName', firstName);
     formData.append('lastName', lastName);
     formData.append('username', username);
+    formData.append('email', email);
     formData.append('password', password);
 
-    if (firstName && lastName && username && password) {
+    if (firstName && lastName && username && email && password) {
       axios
         .post(`${baseUrl}/upload`, formData)
         .then(function (response) {
@@ -107,20 +109,20 @@ export const RegistrationForm = () => {
           <div className="col-lg-5">
             <img src="" className="img-fluid" alt="" />
           </div>
-          <div className="col-lg-7 pt-3">
+          <div className="col pt-3">
             <h1 className="font-weight-bold">Exam Timed App</h1>
             <h4>Register your account</h4>
             <form name="form" onSubmit={handleSubmit}>
               <div
                 className={
-                  'form-group col-lg-7' +
+                  'form-group col' +
                   (submitted && !firstName ? ' has-error' : '')
                 }
               >
                 <label htmlFor="firstName">First Name</label>
                 <input
                   type="text"
-                  className="form-control my-3"
+                  className="form-control my-3 p-4"
                   // ref={firstNameEl}
                   name="firstName"
                   // defaultValue ={user.firstName}
@@ -135,14 +137,14 @@ export const RegistrationForm = () => {
               </div>
               <div
                 className={
-                  'form-group col-lg-7' +
+                  'form-group col-lg' +
                   (submitted && !lastName ? ' has-error' : '')
                 }
               >
                 <label htmlFor="lastName">Last Name</label>
                 <input
                   type="text"
-                  className="form-control my-3"
+                  className="form-control my-3 p-4"
                   // ref={lastNameEl}
                   value={lastName}
                   name="lastName"
@@ -157,20 +159,20 @@ export const RegistrationForm = () => {
               </div>
               <div
                 className={
-                  'form-group col-lg-7' +
+                  'form-group col' +
                   (submitted && !username ? ' has-error' : '')
                 }
               >
-                <label htmlFor="username">Username</label>
+                <label htmlFor="email">Username</label>
                 <input
                   type="text"
-                  className="form-control my-3"
+                  className="form-control my-3 p-4"
                   // ref={usernameEl}
                   value={username}
                   name="username"
-                  // defaultValue={user.username}
+                  // defaultValue={username}
                   // onChange={handleChange}
-                  onChange={(e) => setUserName(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                   placeholder="Username"
                 />
                 {submitted && !username && (
@@ -179,7 +181,29 @@ export const RegistrationForm = () => {
               </div>
               <div
                 className={
-                  'form-group col-lg-7' +
+                  'form-group col' +
+                  (submitted && !email ? ' has-error' : '')
+                }
+              >
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  className="form-control my-3  p-4"
+                  // ref={emailEl}
+                  value={email}
+                  name="email"
+                  // defaultValue={email}
+                  // onChange={handleChange}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email"
+                />
+                {submitted && !email && (
+                  <div className="help-block">Email is required</div>
+                )}
+              </div>
+              <div
+                className={
+                  'form-group col' +
                   (submitted && !password ? ' has-error' : '')
                 }
               >
@@ -202,7 +226,7 @@ export const RegistrationForm = () => {
 
               <div
                 className={
-                  'form-group col-lg-7'
+                  'form-group col'
                   //  +
                   // (submitted && !user ? ' has-error' : '')
                 }
@@ -214,9 +238,9 @@ export const RegistrationForm = () => {
                   // ref={profileImgEl}
                   filename="profileImg"
                   // value={profileImg}
-                  defaultValue={profileImg}
+                  // defaultValue={profileImg}
                   onChange={(e) => setProfileImg(e.target.files[0])}
-                  className="form-control my-3 "
+                  className="form-control my-3 p-4"
                   placeholder="please upload your image"
                 />
 
@@ -224,7 +248,7 @@ export const RegistrationForm = () => {
               </div>
 
               <div className="form-row">
-                <div className="col-lg-7">
+                <div className="col">
                   <button type="submit" className="btn1 btn1 mt-3 mb-5">
                     Register
                   </button>
