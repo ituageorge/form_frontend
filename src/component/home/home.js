@@ -1,12 +1,17 @@
-import React, {useState, useEffect} from 'react';
-import {Link, useLocation,
+import React, {Suspense, useState, useEffect} from 'react';
+import { useLocation,
   useHistory,} from 'react-router-dom';
 import axios from 'axios';
 import {Buffer} from 'buffer';
 
 // import {Login} from '../login'
-import {QuestionApp} from '../question';
-import {UserManagement} from './';
+
+// import {QuestionApp} from '../question';
+const {QuestionApp} = React.lazy(() => import('../question'));
+
+// import {UserManagement} from './';
+const {UserManagement} = React.lazy(() => import('./'));
+
 import './index.css';
 
 const baseUrl = 'http://localhost:3000/users';
@@ -144,7 +149,7 @@ const location = useLocation();
     // className={`${appState.display} user-info`}
     // <div className={`${appState.display} col-md-6 col-md-offset-3`}>
     <div className= 'col-md-6 col-md-offset-3'>
-
+      <Suspense fallback={<div>Loading...</div>}>
       {/* <UserManagement /> */}
 
       {/* // <div className=""> */}
@@ -159,6 +164,7 @@ const location = useLocation();
       <p>
         <button onClick={handleLogout}>Log Out</button>
       </p>
+      </Suspense>
     </div>
   );
 };

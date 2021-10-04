@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   useLocation,
-  useHistory,
   Link,
 } from 'react-router-dom';
 import axios from 'axios';
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import './recoverPassword.css';
 
 // import {history} from '../../_helpers/history';
@@ -14,11 +13,9 @@ const baseUrl = 'http://localhost:3000/users';
 
 export const UpdatePassword = () => {
     const location = useLocation();
-    const history = useHistory();
     const [ password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [ submitted, setSubmitted] = useState(false);
-    const [message, setMessage] = useState("")
 
 
 //   handleChange = key => e => {
@@ -33,13 +30,6 @@ export const UpdatePassword = () => {
    const accessToken = new URLSearchParams(location.search).get('accessToken');
 console.log('userIdddd', userId);
 console.log('accessssToken', accessToken);
-if(!accessToken || !userId ) {
-  history.push({
-    pathname: '/login',
-  });
-  return alert('No access token or user Id');
-  
-}
 
 if(password !== confirmPassword){
   setPassword('')
@@ -51,47 +41,10 @@ if(password !== confirmPassword){
       .post(
         `${baseUrl}/reset_password/receive_new_password/${userId}/${accessToken}`,
         { password }
-      ).then(
-       (response) => {
-         
-           if (response.data.accessToken) {
-          //  console.log('respUpdaate', response);
-          //  if (response) {
-            console.log('reessponnse', response)
-             
-          //   //  let {  findLoginUser } = response.data;
-          //   //  localStorage.setItem('accessToken', accessToken);
-          //   //  localStorage.setItem('refreshToken', refreshToken);
-             
-           }
-     return  response;
-         },
-       (error) => {
-           if (error.response) {
-             // client received an error response (5xx, 4xx)
-             console.log('errorUpdatePasswordRes', error);
-          // message = error.response.data.message
-            // alert(message)
-           } else if (error.request) {
-             // client never received a response, or request never left
-             console.log('errorUpdatePasswordReq', error.request);
-              // message = error.request.data.message
-            //  alert(message)
-           } else {
-             // anything else
-             console.log('eeeror', error);
-             alert(error)
-           }
-         },
-       );
-
-
-
-      // .then((res) => {
-      //   console.log("res", res)
-      // })
-      // .catch(err => console.warn("ERROR FROM SERVER UPDATING PASSWORD:", err));
-      // setSubmitted(true);
+      )
+      .then(res => res)
+      .catch(err => console.warn("ERROR FROM SERVER UPDATING PASSWORD:", err));
+      setSubmitted(true);
   }
     // this.setState({ submitted: !this.state.submitted })
   }
@@ -100,7 +53,6 @@ if(password !== confirmPassword){
           <div className="updatepasswordstyles">
         <h3 style={{ paddingBottom: "1.25rem" }}>Update your password</h3>
         {submitted ? (
-          
           <div className="reset-password-form-sent-wrapper">
             <p>Your password has been saved.</p>
             <Link to="/login" className="ghost-btn">

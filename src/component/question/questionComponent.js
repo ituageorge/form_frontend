@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {Suspense, useState} from 'react';
 
 import {uuid} from 'uuidv4';
 // import { uuid } from uuid4
 
-import {questions} from './questions';
+// import {questions} from './questions';
+const {questions} = React.lazy(() => import('./questions'));
+
 import './styles.css';
 
 
@@ -28,6 +30,7 @@ export const QuestionApp = () => {
 
   return (
     <div className="app">
+      <Suspense fallback={<div>Loading...</div>}>
       {showScore ? (
         <div className="score-section">
           You scored {score} out of {questions.length}
@@ -60,6 +63,7 @@ export const QuestionApp = () => {
           </div>
         </>
       )}
+      </Suspense>
     </div>
   );
 };

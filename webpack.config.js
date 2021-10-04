@@ -2,18 +2,23 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 // webpack needs to be explicitly required
-const webpack = require('webpack')
+const webpack = require('webpack');
+var mode = process.env.NODE_ENV || 'development';
 
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    // filename: 'main.js',
-    filename: "[name].js",
     path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[chunkhash:8].js',
+    sourceMapFilename: '[name].[chunckhash:8].map',
+    chunkFilename: '[id].[chunkhash:8].js'
+
+    // filename: 'main.js',
+    // filename: "[name].js",
+    // path: path.resolve(__dirname, 'dist'),
   },
  
-  mode: 'development',
   module: {
     rules: [
       
@@ -63,4 +68,9 @@ module.exports = {
       util: require.resolve('util/'),
     },
   },
+  // optimization: {
+  //   runtimeChunk: 'single',
+  // },
+
+ 
 };

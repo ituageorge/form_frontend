@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Link,
-  useLocation,
   useHistory,
-  Redirect,
-  withRouter,
 } from 'react-router-dom';
 import axios from 'axios';
+// import imagelogin from "../../images\brooke-lark-W1B2LpQOBxA-unsplash.jpg"
 // import {BrowserRouter as Router, Switch, Redirect, Link} from 'react-router-dom';
 
 // import {history} from '../../_helpers/history';
@@ -62,7 +60,6 @@ export const LoginForm = () => {
 
   const [submitted, setSubmitted] = useState(false);
 
-  const [message, setMessage] = useState("");
   // const location = useLocation();
   const history = useHistory();
 
@@ -76,7 +73,7 @@ export const LoginForm = () => {
         password: password,
       })
       .then(
-       async (response) => {
+        (response) => {
           // if (response.data.accessToken) {
           console.log('response111111', response);
           if (response) {
@@ -92,25 +89,26 @@ export const LoginForm = () => {
               // state: {_id: "0001", name: "AZ"}
             });
 
+            // <Route path="/" component={() => <HomePage name={this.props.name} />} />
+
+             // <Route path="/" component={() => <HomePage findLoginUser={findLoginUser} />} />
+
+            // <Route path="/:name" component={Search} />
 
             // window.location.reload();
           }
           return response;
         },
-       async (error) => {
+        (error) => {
           if (error.response) {
             // client received an error response (5xx, 4xx)
-            console.log('errorRes', error.response.data.message);
-        const message = error.response.data.message
-           alert(message)
+            console.log('errorRes', error.response);
           } else if (error.request) {
             // client never received a response, or request never left
             console.log('errorReq', error.request);
-            alert(error)
           } else {
             // anything else
             console.log('eeeror', error);
-            alert(error)
           }
         },
       );
@@ -121,7 +119,6 @@ export const LoginForm = () => {
 
   return (
     <section className="form">
-      
       <div className="container">
         <div className="row no-gutters">
           <div className="col-lg-4">
@@ -130,7 +127,6 @@ export const LoginForm = () => {
           <div className="col-lg-8  pt-2">
             <h1 className="font-weight-bold">Exam Time Application</h1>
             <h4>Sign into your account</h4>
-            {message}
             <form name="form row" onSubmit={handleSubmit}>
               <div
                 className={

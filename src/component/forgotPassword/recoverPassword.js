@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Link,
-  useLocation,
-  useHistory,
-  Redirect,
-  withRouter,
 } from 'react-router-dom';
 import axios from 'axios';
 import './recoverPassword.css'
-// import {BrowserRouter as Router, Switch, Redirect, Link} from 'react-router-dom';
 
 // import {history} from '../../_helpers/history';
 
