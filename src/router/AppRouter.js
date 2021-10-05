@@ -1,32 +1,21 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { Switch, Route, HashRouter, Redirect } from 'react-router-dom';
 
-// import { history, PrivateRoute } from '../_helpers';
+import { PrivateRoute } from '../_helpers';
 
-// const OtherComponent = React.lazy(() => import('./OtherComponent'));
+import { HomePage } from '../component/home';
 
-// import { PrivateRoute } from '../_helpers';
-const { PrivateRoute } = lazy(() => import('../_helpers'));
+import { UserManagement } from '../component/home';
 
-// import { HomePage } from '../component/home';
-const {HomePage} = lazy(() => import('../component/home'));
+import { LoginForm } from '../component/login';
 
-// import { UserManagement } from '../component/home';
-const {UserManagement} = lazy(() => import('../component/home'));
+import { RegistrationForm } from '../component/registration';
 
-// import { LoginForm } from '../component/login';
-const {LoginForm} = lazy(() => import('../component/login'));
+import { RecoverPassword } from '../component/forgotPassword';
 
-// import { RegistrationForm } from '../component/registration';
-const {RegistrationForm} = lazy(() => import('../component/registration'));
+import { UpdatePassword } from '../component/forgotPassword';
 
-// import { RecoverPassword } from '../component/forgotPassword';
-const {RecoverPassword} = lazy(() => import('../component/forgotPassword'));
-
-// import { UpdatePassword } from '../component/forgotPassword';
-const {UpdatePassword} = lazy(() => import('../component/forgotPassword'));
-
-function App() {
+export function App() {
   let userId = '';
   let token = '';
   return (
@@ -34,12 +23,10 @@ function App() {
     <div className=""
     //  style={{ backgroundImage: "url(dist\sincerely-media-DgQf1dUKUTM-unsplash.jpg)" }}
       >
-      {/* <Router history={history}> */}
       <HashRouter>
-      <Suspense fallback={<div>Loading...</div>}>
+      
         <Switch>
           <PrivateRoute exact path="/" component={HomePage} />
-          {/* <Route exact path="/" component={HomePage} /> */}
           <Route path="/user_management" component={UserManagement} />
           <Route path="/login" component={LoginForm} />
           <Route path="/recover/password" component={RecoverPassword} />
@@ -51,9 +38,9 @@ function App() {
           <Route path="/register" component={RegistrationForm} />
           <Redirect from="*" to="/register" />
         </Switch>
-        </Suspense>
+       
       </HashRouter>
-      {/* </Router> */}
+     
     </div>
   );
 }

@@ -54,7 +54,7 @@ axios.interceptors.response.use(
   },
 );
 
-export const LoginForm = () => {
+ export default function LoginForm (){
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 

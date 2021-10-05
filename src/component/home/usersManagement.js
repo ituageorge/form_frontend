@@ -50,7 +50,7 @@ const baseUrl = "http://localhost:3001/users";
   }
   
 
-export const UserManagement = () =>{
+ const UserManagement = () =>{
 
     const [userState, setUserState] = useState({
         isLoggedIn: false,
@@ -88,4 +88,4 @@ export const UserManagement = () =>{
     )
 }
 
-// export default UserManagement;
+export default UserManagement;

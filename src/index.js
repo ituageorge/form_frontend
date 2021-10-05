@@ -6,7 +6,7 @@ import  App  from './router/AppRouter';
 
 
 
-const wrapper = document.getElementById('container');
+ const wrapper = document.getElementById('container');
 wrapper
   ? ReactDOM.render(
     // <HashRouter>
