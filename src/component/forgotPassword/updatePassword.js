@@ -18,11 +18,6 @@ const baseUrl = 'http://localhost:3000/users';
     const [ submitted, setSubmitted] = useState(false);
 
 
-//   handleChange = key => e => {
-//     this.setState({ [key]: e.target.value })
-//   }
-
-
   const updateThePassword = e => {
     e.preventDefault()
 

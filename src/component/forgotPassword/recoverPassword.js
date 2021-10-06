@@ -67,7 +67,7 @@ const baseUrl = 'http://localhost:3000/users';
               It happens to the best of us. Enter your email and we'll send you
               reset instructions.
             </p>
-            <form onSubmit={sendPasswordResetEmail}>
+            <form className="form row" onSubmit={sendPasswordResetEmail}>
             <div
                 className={
                   '' +
@@ -91,10 +91,10 @@ const baseUrl = 'http://localhost:3000/users';
                 )}
               </div>
 
-              <button className="btn-primary password-reset-btn">
-                  Send password reset link to email
+              <div className="form-row col">      
+              <button className="btn-primary password-reset-btn"> <span className="buttonText">Send password reset link to email</span>
               </button>
-
+               </div>   
             </form>
             <Link to="/login">I remember my password</Link>
           </div>

@@ -28,6 +28,10 @@
     margin-right: auto;
     color: #ffffff;
   }
+
+  .updatepasswordstyles {
+      width: 100%;
+  }
   
   .app {
     background-color: #171f3a;
