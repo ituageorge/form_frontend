@@ -11,7 +11,7 @@ import './recoverPassword.css';
 
 const baseUrl = 'http://localhost:3000/users';
 
-export const UpdatePassword = () => {
+ const UpdatePassword = () => {
     const location = useLocation();
     const [ password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -116,4 +116,4 @@ if(password !== confirmPassword){
 //   userId: PropTypes.string.isRequired
 // }
 
-//  default UpdatePassword
+export default UpdatePassword

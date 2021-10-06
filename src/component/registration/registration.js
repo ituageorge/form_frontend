@@ -1,12 +1,7 @@
-import React, {useState} from 'react';
-// import {BrowserRouter as Router, Switch, Redirect, Link} from 'react-router-dom';
-import {
-  Link,
-  useHistory,
-} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-
-import regeneratorRuntime from 'regenerator-runtime';
+import 'regenerator-runtime/runtime';
 
 //request interceptor to add the auth token header to requests
 axios.interceptors.request.use(
@@ -38,7 +33,7 @@ axios.interceptors.response.use(
     ) {
       originalRequest._retry = true;
       return axios
-        .post(`${baseUrl}/refresh_token`, {refreshToken: refreshToken})
+        .post(`${baseUrl}/refresh_token`, { refreshToken: refreshToken })
         .then((res) => {
           if (res.status === 200) {
             localStorage.setItem('accessToken', res.data.accessToken);
@@ -53,7 +48,7 @@ axios.interceptors.response.use(
 
 const baseUrl = 'http://localhost:3000/users';
 
-export const RegistrationForm = () => {
+const RegistrationForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -84,7 +79,7 @@ export const RegistrationForm = () => {
         .then(function (response) {
           console.log('response', response);
 
-          let {accessToken, refreshToken} = response.data;
+          let { accessToken, refreshToken } = response.data;
           localStorage.setItem('accessToken', accessToken);
           localStorage.setItem('refreshToken', refreshToken);
 
@@ -99,166 +94,133 @@ export const RegistrationForm = () => {
   };
 
   return (
-    // <form name="form" onSubmit={handleSubmit}>
-    <section className="form">
-      <div className="container">
-        <div className="row no-gutters">
-          <div className="col-lg-5">
-            <img src="" className="img-fluid" alt="" />
+    <div className="row no-gutters div_container">
+      <div className="col pt-3">
+        <h1 className="font-weight-bold">Exam Timed App </h1>
+        <h4>Register your account</h4>
+        <form name="form row" onSubmit={handleSubmit}>
+          <div
+            className={
+              'form-group col' + (submitted && !firstName ? ' has-error' : '')
+            }
+          >
+            <label htmlFor="firstName">First Name</label>
+            <input
+              type="text"
+              className="form-control my-3 p-4"
+              name="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="First Name"
+            />
+            {submitted && !firstName && (
+              <div className="help-block">First Name is required</div>
+            )}
           </div>
-          <div className="col pt-3">
-            <h1 className="font-weight-bold">Exam Timed App</h1>
-            <h4>Register your account</h4>
-            <form name="form" onSubmit={handleSubmit}>
-              <div
-                className={
-                  'form-group col' +
-                  (submitted && !firstName ? ' has-error' : '')
-                }
-              >
-                <label htmlFor="firstName">First Name</label>
-                <input
-                  type="text"
-                  className="form-control my-3 p-4"
-                  // ref={firstNameEl}
-                  name="firstName"
-                  // defaultValue ={user.firstName}
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  // onChange={handleChange}
-                  placeholder="First Name"
-                />
-                {submitted && !firstName && (
-                  <div className="help-block">First Name is required</div>
-                )}
-              </div>
-              <div
-                className={
-                  'form-group col-lg' +
-                  (submitted && !lastName ? ' has-error' : '')
-                }
-              >
-                <label htmlFor="lastName">Last Name</label>
-                <input
-                  type="text"
-                  className="form-control my-3 p-4"
-                  // ref={lastNameEl}
-                  value={lastName}
-                  name="lastName"
-                  // defaultValue={user.lastName}
-                  // onChange={handleChange}
-                  onChange={(e) => setLastName(e.target.value)}
-                  placeholder="Last Name"
-                />
-                {submitted && !lastName && (
-                  <div className="help-block">Last Name is required</div>
-                )}
-              </div>
-              <div
-                className={
-                  'form-group col' +
-                  (submitted && !username ? ' has-error' : '')
-                }
-              >
-                <label htmlFor="email">Username</label>
-                <input
-                  type="text"
-                  className="form-control my-3 p-4"
-                  // ref={usernameEl}
-                  value={username}
-                  name="username"
-                  // defaultValue={username}
-                  // onChange={handleChange}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Username"
-                />
-                {submitted && !username && (
-                  <div className="help-block">Username is required</div>
-                )}
-              </div>
-              <div
-                className={
-                  'form-group col' +
-                  (submitted && !email ? ' has-error' : '')
-                }
-              >
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  className="form-control my-3  p-4"
-                  // ref={emailEl}
-                  value={email}
-                  name="email"
-                  // defaultValue={email}
-                  // onChange={handleChange}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
-                />
-                {submitted && !email && (
-                  <div className="help-block">Email is required</div>
-                )}
-              </div>
-              <div
-                className={
-                  'form-group col' +
-                  (submitted && !password ? ' has-error' : '')
-                }
-              >
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  className="form-control my-3 p-4"
-                  // ref={passwordEl}
-                  value={password}
-                  name="password"
-                  // defaultValue={user.password}
-                  // onChange={handleChange}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                />
-                {submitted && !password && (
-                  <div className="help-block">Password is required</div>
-                )}
-              </div>
-
-              <div
-                className={
-                  'form-group col'
-                  //  +
-                  // (submitted && !user ? ' has-error' : '')
-                }
-              >
-                <label htmlFor="userImage">Your passport</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  // ref={profileImgEl}
-                  filename="profileImg"
-                  // value={profileImg}
-                  // defaultValue={profileImg}
-                  onChange={(e) => setProfileImg(e.target.files[0])}
-                  className="form-control my-3 p-4"
-                  placeholder="please upload your image"
-                />
-
-                {/* <FileInput /> */}
-              </div>
-
-              <div className="form-row">
-                <div className="col">
-                  <button type="submit" className="btn1 btn1 mt-3 mb-5">
-                    Register
-                  </button>
-                </div>
-              </div>
-              <p>
-                Already a member?
-                <Link to="/login">Login here</Link>
-              </p>
-            </form>
+          <div
+            className={
+              'form-group col' + (submitted && !lastName ? ' has-error' : '')
+            }
+          >
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              type="text"
+              className="form-control my-3 p-4"
+              value={lastName}
+              name="lastName"
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Last Name"
+            />
+            {submitted && !lastName && (
+              <div className="help-block">Last Name is required</div>
+            )}
           </div>
-        </div>
+          <div
+            className={
+              'form-group col' + (submitted && !username ? ' has-error' : '')
+            }
+          >
+            <label htmlFor="email">Username</label>
+            <input
+              type="text"
+              className="form-control my-3 p-4"
+              value={username}
+              name="username"
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
+            />
+            {submitted && !username && (
+              <div className="help-block">Username is required</div>
+            )}
+          </div>
+          <div
+            className={
+              'form-group col' + (submitted && !email ? ' has-error' : '')
+            }
+          >
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              className="form-control my-3  p-4"
+              value={email}
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+            />
+            {submitted && !email && (
+              <div className="help-block">Email is required</div>
+            )}
+          </div>
+          <div
+            className={
+              'form-group col' + (submitted && !password ? ' has-error' : '')
+            }
+          >
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              className="form-control my-3 p-4"
+              value={password}
+              name="password"
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+            />
+            {submitted && !password && (
+              <div className="help-block">Password is required</div>
+            )}
+          </div>
+
+          <div
+            className={
+              'form-group col'
+              //  +
+              // (submitted && !user ? ' has-error' : '')
+            }
+          >
+            <label htmlFor="userImage">Your passport</label>
+            <input
+              type="file"
+              accept="image/*"
+              filename="profileImg"
+              onChange={(e) => setProfileImg(e.target.files[0])}
+              className="form-control my-3 p-4"
+              placeholder="please upload your image"
+            />
+          </div>
+
+          <div className="form-row col">
+            <button type="submit" className="btn1 btn1 mt-3 mb-5 ">
+              <span className="buttonText">Register</span>
+            </button>
+          </div>
+          <p>
+            Already a member?
+            <Link to="/login">Login here</Link>
+          </p>
+        </form>
       </div>
-    </section>
+    </div>
   );
 };
+
+export default RegistrationForm;

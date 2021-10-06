@@ -1,3 +1,2 @@
 
-export * from "./registration"
-export * from "./fileInput"
+export * from "./registration";

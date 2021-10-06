@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
-import {
-  Link,
-  useHistory,
-} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-// import imagelogin from "../../images\brooke-lark-W1B2LpQOBxA-unsplash.jpg"
-// import {BrowserRouter as Router, Switch, Redirect, Link} from 'react-router-dom';
-
-// import {history} from '../../_helpers/history';
 
 const baseUrl = 'http://localhost:3000/users';
 
@@ -54,13 +47,12 @@ axios.interceptors.response.use(
   },
 );
 
- export default function LoginForm (){
+export default function LoginForm() {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   const [submitted, setSubmitted] = useState(false);
 
-  // const location = useLocation();
   const history = useHistory();
 
   const handleSubmit = (e) => {
@@ -74,28 +66,16 @@ axios.interceptors.response.use(
       })
       .then(
         (response) => {
-          // if (response.data.accessToken) {
           console.log('response111111', response);
           if (response) {
-            // localStorage.setItem("user", JSON.stringify(response.data));
             let { accessToken, refreshToken, findLoginUser } = response.data;
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
-            // history.push('/');
-
             history.push({
               pathname: '/',
               findLoginUser,
               // state: {_id: "0001", name: "AZ"}
             });
-
-            // <Route path="/" component={() => <HomePage name={this.props.name} />} />
-
-             // <Route path="/" component={() => <HomePage findLoginUser={findLoginUser} />} />
-
-            // <Route path="/:name" component={Search} />
-
-            // window.location.reload();
           }
           return response;
         },
@@ -113,89 +93,62 @@ axios.interceptors.response.use(
         },
       );
 
-    // history.push('/');
-    // window.location.reload();
   };
 
   return (
-    <section className="form">
-      <div className="container">
-        <div className="row no-gutters">
-          <div className="col-lg-4">
-            <img src="" className="img-fluid" alt="" />
+    <div className="row no-gutters">
+      <div className="col  pt-3">
+        <h1 className="font-weight-bold">Exam Time Application</h1>
+        <h4>Sign into your account</h4>
+        <form name="form row" onSubmit={handleSubmit}>
+          <div
+            className={' col' + (submitted && !username ? ' has-error' : '')}
+          >
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              placeholder="Username"
+              className="form-control my-3 p-4"
+              name="username"
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
+            />
+            {submitted && !username && (
+              <div className="help-block">Username is required</div>
+            )}
           </div>
-          <div className="col-lg-8  pt-2">
-            <h1 className="font-weight-bold">Exam Time Application</h1>
-            <h4>Sign into your account</h4>
-            <form name="form row" onSubmit={handleSubmit}>
-              <div
-                className={
-                  ' col' +
-                  (submitted && !username ? ' has-error' : '')
-                }
-              >
-                <label htmlFor="username">Username</label>
-                <input
-                  type="text"
-                  placeholder="Username"
-                  className="form-control my-3 p-4"
-                  name="username"
-                  value={username}
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-                {submitted && !username && (
-                  <div className="help-block">Username is required</div>
-                )}
-              </div>
-              <div
-                className={
-                  'form-group col' +
-                  (submitted && !username ? ' has-error' : '')
-                }
-              >
-                <label htmlFor="username">Password</label>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="form-control my-3 p-4"
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                {submitted && !password && (
-                  <div className="help-block">Password is required</div>
-                )}
-              </div>
-              <div className="form-row col-lg-7">
-                <button className="btn1 btn1 mt-3 mb-5">Login</button>
-                {/* {loggingIn && <img src=""/>} */}
-              </div>
-        
-              <Link to="/recover/password">Forgot password?</Link>
-              <p>
-                Don't have an account?
-                <Link to="/register">Register here</Link>
-              </p>
-            </form>
+          <div
+            className={
+              'form-group col' + (submitted && !username ? ' has-error' : '')
+            }
+          >
+            <label htmlFor="username">Password</label>
+            <input
+              type="password"
+              placeholder="Password"
+              className="form-control my-3 p-4"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {submitted && !password && (
+              <div className="help-block">Password is required</div>
+            )}
           </div>
-        </div>
+          <div className="form-row col">
+            <button className="btn1 btn1 mt-3 mb-5">
+              {' '}
+              <span className="buttonText">Login</span>{' '}
+            </button>
+          </div>
+
+          <Link to="/recover/password">Forgot password?</Link>
+          <p>
+            Don't have an account?
+            <Link to="/register">Register here</Link>
+          </p>
+        </form>
       </div>
-    </section>
+    </div>
   );
-};
-
-// .then((response) => {
-//   console.log('response', response);
-//   if (response.data.accessToken) {
-//     localStorage.setItem("user", JSON.stringify(response.data));
-//   }
-//   return response.data
-
-// })
-// .catch((error) => {
-//   console.log('errorcatch',error);
-//   throw error;
-// });
-
-// export default withRouter(LoginForm);
-// export default LoginForm
+}

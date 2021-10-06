@@ -11,7 +11,7 @@ const baseUrl = 'http://localhost:3000/users';
 
 
 
-export const RecoverPassword = ({message}) => {
+ const RecoverPassword = ({message}) => {
     const [ email, setEmail] = useState('');
     const [submitted, setSubmitted] = useState(false);
     
@@ -105,3 +105,4 @@ export const RecoverPassword = ({message}) => {
 
 }
 
+export default RecoverPassword

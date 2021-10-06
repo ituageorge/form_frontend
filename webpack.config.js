@@ -1,13 +1,15 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+
 const path = require('path');
 
 // webpack needs to be explicitly required
 const webpack = require('webpack');
 var mode = process.env.NODE_ENV || 'development';
 
-
+//entry: ["regenerator-runtime/runtime.js", "<your enter js file>"]
 module.exports = {
-  entry: './src/index.js',
+  entry: ['regenerator-runtime/runtime.js', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[chunkhash:8].js',
@@ -19,6 +21,7 @@ module.exports = {
     // path: path.resolve(__dirname, 'dist'),
   },
   mode: 'development',
+
   module: {
     rules: [
       
@@ -57,11 +60,13 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
+      title: 'Your form text!',
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
     }),
- 
+
+  
   ],
   resolve: {
     fallback: {

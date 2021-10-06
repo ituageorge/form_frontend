@@ -6,11 +6,11 @@ import {uuid} from 'uuidv4';
 import {questions} from './questions';
 
 
-import './styles.css';
+// import './styles.css';
 
 
 
-export const QuestionApp = () => {
+ const QuestionApp = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
@@ -66,3 +66,5 @@ export const QuestionApp = () => {
     </div>
   );
 };
+
+export default QuestionApp
