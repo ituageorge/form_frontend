@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
+import 'regenerator-runtime/runtime';
+
 const baseUrl = 'http://localhost:3000/users';
 
 //request interceptor to add the auth token header to requests

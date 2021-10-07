@@ -1,2 +1,2 @@
-export * from "./questionComponent"
+// export * from "./questionComponent"
 export * from "./questions"

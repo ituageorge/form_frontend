@@ -3,7 +3,7 @@ import React, { useState} from 'react';
 import {uuid} from 'uuidv4';
 // import { uuid } from uuid4
 
-import {questions} from './questions';
+import {questions} from './';
 
 
 // import './styles.css';

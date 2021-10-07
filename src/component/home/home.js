@@ -4,9 +4,11 @@ import { useLocation,
 import axios from 'axios';
 import {Buffer} from 'buffer';
 
+import 'regenerator-runtime/runtime';
+
 // import {Login} from '../login'
 
-import {QuestionApp} from '../question';
+import QuestionApp from '../question/questionComponent';
 // const {QuestionApp} = React.lazy(() => import('../question'));
 
 import {UserManagement} from './';

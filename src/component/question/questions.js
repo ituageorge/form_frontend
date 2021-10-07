@@ -1,8 +1,8 @@
-// import React from 'react';
+import React from 'react';
 
 //creating an array and passing the number, questions, options, and answers
 
- const questions = [
+ export const questions = [
   {
     questionText: 'Who is the President of France?',
     answerOptions: [

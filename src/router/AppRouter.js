@@ -23,7 +23,7 @@ const RecoverPassword = lazy(() => import('../component/forgotPassword/recoverPa
 const UpdatePassword = lazy(() => import('../component/forgotPassword/updatePassword'))
 // import { UpdatePassword } from '../component/forgotPassword';
 
- function App() {
+export default function App() {
   let userId = '';
   let token = '';
   return (
@@ -53,4 +53,4 @@ const UpdatePassword = lazy(() => import('../component/forgotPassword/updatePass
   );
 }
 
-export default App;
+// export default App;
